@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import QApplication
 from gui import GUI
 import sys
 from threading import Thread
-
+from sticker_handler import StickerHandler
 def rescaleCoord(coord,new,old):
     Rx=new[0]/old[0]
     Ry=new[1]/old[1]
@@ -20,17 +20,16 @@ def init():
     path=path[:-8]
     path='C:\\Python Scripts\\Live Emoji\\'
     lp=LandmarkPredict("C:\Python Scripts\Live sticker\models\saved_model")
-    fl=FaceLocalizer("C:\Python Scripts\Live sticker\models\haarcascade_frontalface_alt.xml")
+    fl=FaceLocalizer()
     vc=cv.VideoCapture(0)
+    global sticker
+    sticker=StickerHandler("C:\\Python Scripts\\Live sticker\\sticker images\\")
 
 def getLandmarks(frame):
-    gray=cv.cvtColor(frame,cv.COLOR_BGR2GRAY)
-    bbox=fl.getFace(gray)
+    bbox=fl.getFace(frame)
     if len(bbox)>0:
-        bbox=bbox[0]
-        x,y,h,w=bbox[0],bbox[1],bbox[2],bbox[3]
-        face=frame[y:y+w,x:x+h]
-        cv.waitKey(0)
+        x,y,w,h=bbox[0],bbox[1],bbox[2],bbox[3]
+        face=frame[y:y+h,x:x+w]
         sface=cv.resize(face,(40,40))
         sface=sface/255.0
         points=lp.getLandmarks(sface)[0]
@@ -47,6 +46,12 @@ def getFrames(gui_object):
     while on_cam:
         _,frame=vc.read()
         landmarks=getLandmarks(frame)
+        if not len(landmarks)==0:
+            leye=landmarks[0:2]
+            reye=landmarks[2:4]
+            for i in range(0,10,2):
+                cv.circle(frame,(landmarks[i],landmarks[i+1]),2,(0,0,255),-1)
+
         gui_object.setcurFrame(frame)
         gui_object.trigger.emit()
         cv.waitKey(15)

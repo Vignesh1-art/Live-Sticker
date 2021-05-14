@@ -1,9 +1,14 @@
 import cv2 as cv
-
+from mtcnn_cv2 import MTCNN
 class FaceLocalizer:
-    def __init__(self,path):
-        self.face_cascade=cv.CascadeClassifier(path)
-
+    def __init__(self):
+        self.model=MTCNN()
+    
     def getFace(self,img):
-        d=self.face_cascade.detectMultiScale(img)
-        return d
+        faces=self.model.detect_faces(img)
+        if len(faces)<=0:
+            return []
+        face=faces[0]
+        b=face['box']
+        x,y,w,h=b[0],b[1],b[2],b[3]
+        return [x,y,w,h]

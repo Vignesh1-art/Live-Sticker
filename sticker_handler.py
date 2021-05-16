@@ -37,5 +37,5 @@ class StickerHandler:
     def overlaySticker(frame,sticker):
         for i in range(frame.shape[0]):
             for j in range(frame.shape[1]):
-                if sticker[i,j,0]!=0:
-                    frame[i,j]=sticker[i,j,1:]
+                if sticker[i,j,3]!=0:
+                    frame[i,j]=sticker[i,j,0:-1]

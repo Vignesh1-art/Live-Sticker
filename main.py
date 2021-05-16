@@ -16,16 +16,17 @@ class Main:
     
     def getFrames(self,gui):
         stk_id=0
-        anchor="eye"
+        #anchoring to eye if anchor=e else if anchor=m anchors to mouth 
+        anchor="e"
         while self.cam_on:
             cv.waitKey(20)
             _,frame=self.vc.read()
             landmark=self.ld.getLandmarks(frame)
             if(len(landmark)>0):
-                if anchor=="eye":
+                if anchor=="e":
                     p1=landmark[0:2]
                     p2=landmark[2:4]
-                elif anchor=="mouth":
+                elif anchor=="m":
                     p1=landmark[6:8]
                     p2=landmark[8:10]
                 stk_img,shift=self.stickers.getSticker(stk_id,p1,p2)

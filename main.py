@@ -49,8 +49,11 @@ def getFrames(gui_object):
         if not len(landmarks)==0:
             leye=landmarks[0:2]
             reye=landmarks[2:4]
-            for i in range(0,10,2):
-                cv.circle(frame,(landmarks[i],landmarks[i+1]),2,(0,0,255),-1)
+            stk,shift=sticker.getSticker(0,leye,reye)
+            x=int(leye[0])-shift[0]
+            y=int(leye[1])-shift[1]+10
+            subframe=frame[y:y+stk.shape[0],x:x+stk.shape[1]]
+            StickerHandler.overlaySticker(subframe,stk)
 
         gui_object.setcurFrame(frame)
         gui_object.trigger.emit()

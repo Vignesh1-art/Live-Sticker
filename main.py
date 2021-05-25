@@ -19,7 +19,7 @@ class Main:
         #anchoring to eye if anchor=e else if anchor=m anchors to mouth 
         anchor="e"
         while self.cam_on:
-            cv.waitKey(20)
+            cv.waitKey(22)
             _,frame=self.vc.read()
             landmark=self.ld.getLandmarks(frame)
             if(len(landmark)>0):

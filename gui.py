@@ -1,11 +1,9 @@
-from PyQt5.QtWidgets import QApplication, QWidget,QLabel
-from PyQt5.QtGui import QPixmap,QImage
+from PyQt5.QtWidgets import QWidget,QLabel
+from PyQt5.QtGui import QPixmap
 import cv2 as cv
-from PyQt5.QtCore import pyqtSignal, QObject,Qt
-import sys
-from threading import Thread
-from PyQt5 import QtGui, QtCore
-import time
+from PyQt5.QtCore import pyqtSignal,Qt
+from PyQt5 import QtGui
+
 
 class GUI(QWidget):
     trigger=pyqtSignal()

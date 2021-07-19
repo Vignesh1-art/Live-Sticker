@@ -12,16 +12,18 @@ class Main:
         self.stickers=StickerHandler("C:\\Python Scripts\\Live sticker\\sticker images\\")
         self.vc=cv.VideoCapture(0)
         self.cam_on=True
+        self.getAnchor={0:"e",1:"m"}
 
     
     def getFrames(self,gui):
         stk_id=0
         #anchoring to eye if anchor=e else if anchor=m anchors to mouth 
-        anchor="e"
+        anchor=self.getAnchor[stk_id]
         while self.cam_on:
             cv.waitKey(22)
             _,frame=self.vc.read()
             landmark=self.ld.getLandmarks(frame)
+
             if(len(landmark)>0):
                 if anchor=="e":
                     p1=landmark[0:2]

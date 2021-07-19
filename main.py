@@ -16,10 +16,10 @@ class Main:
 
     
     def getFrames(self,gui):
-        stk_id=0
         #anchoring to eye if anchor=e else if anchor=m anchors to mouth 
-        anchor=self.getAnchor[stk_id]
         while self.cam_on:
+            stk_id=gui.stk_id
+            anchor=self.getAnchor[stk_id]
             cv.waitKey(22)
             _,frame=self.vc.read()
             landmark=self.ld.getLandmarks(frame)

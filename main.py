@@ -29,6 +29,7 @@ class Main:
                 elif anchor=="m":
                     p1=landmark[6:8]
                     p2=landmark[8:10]
+                
                 stk_img,shift=self.stickers.getSticker(stk_id,p1,p2)
                 x=p1[0]-shift[0]
                 y=p1[1]-shift[1]

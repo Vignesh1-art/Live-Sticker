@@ -13,7 +13,7 @@ class GUI(QWidget):
         super().__init__()      
         self.setGeometry(0,0,1000,600)
         self.image=QLabel(self)
-        im=cv.imread('C:\\Users\\Vignesh Shetty\\Pictures\\Camera Roll\\1.jpg')
+        im=cv.imread('C:\\Python Scripts\\Live sticker\\sticker images\\cam.png')
         img=self.convert_cv_qt(im)
         self.image.setPixmap(img)
         self.image.setStyleSheet( "padding-top : 20px;"
